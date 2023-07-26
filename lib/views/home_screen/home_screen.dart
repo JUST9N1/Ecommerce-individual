@@ -1,52 +1,56 @@
-import 'package:emart_app/consts/consts.dart';
-import 'package:emart_app/controller/home_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:emart_app/consts/lists.dart';
+import 'package:emart_app/widgets_common/home_buttons.dart';
+
+import '../../consts/consts.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //init home controller
-    var controller = Get.put(HomeController());
-
-    var navbarItem = [
-      BottomNavigationBarItem(
-          icon: Image.asset(icHome, width: 26), label: home),
-      BottomNavigationBarItem(
-          icon: Image.asset(icCategories, width: 26), label: categories),
-      BottomNavigationBarItem(
-          icon: Image.asset(icCart, width: 26), label: cart),
-      BottomNavigationBarItem(
-          icon: Image.asset(icProfile, width: 26), label: account),
-    ];
-
-    var navBody = [
-      Container(color: Colors.blue),
-      Container(color: Colors.amber),
-      Container(color: Colors.purple),
-      Container(color: Colors.cyan),
-    ];
-
-    return Scaffold(
-      body: Column(
+    return Container(
+      padding: const EdgeInsets.all(12),
+      color: lightGrey,
+      width: context.screenWidth,
+      height: context.screenHeight,
+      child: SafeArea(
+          child: Column(
         children: [
-          Obx(() => Expanded(child: navBody.elementAt(controller.currentNavIndex.value))),
+          Container(
+              alignment: Alignment.center,
+              height: 60,
+              color: lightGrey,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    suffixIcon: Icon(Icons.search),
+                    filled: true,
+                    fillColor: whiteColor,
+                    hintText: searchanything,
+                    hintStyle: TextStyle(color: textfieldGrey)),
+              )),
+
+          // swipers brands
+          VxSwiper.builder(
+              aspectRatio: 16 / 9,
+              autoPlay: true,
+              height: 150,
+              enlargeCenterPage: true,
+              itemCount: slidersList.length,
+              itemBuilder: ((context, index) {
+                return Image.asset(
+                  slidersList[index],
+                  fit: BoxFit.fill,
+                ).box.rounded.clip(Clip.antiAlias).margin(const EdgeInsets.symmetric(horizontal: 8)).make();
+              })),
+
+              10.heightBox,
+              //deals buttons
+              Row(
+                children: List.generate(2, (index) => homeButtons()),
+              )
+
         ],
-      ),
-      bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-            currentIndex: controller.currentNavIndex.value,
-            selectedItemColor: redColor,
-            selectedLabelStyle: const TextStyle(fontFamily: semibold),
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: whiteColor,
-            items: navbarItem,
-            onTap: (value) {
-              controller.currentNavIndex.value = value;
-            }),
-      ),
+      )),
     );
   }
 }
