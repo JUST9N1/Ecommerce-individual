@@ -12,15 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //Using getx so we have to change this mterial app into getmaterialapp
-    
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: appname,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.transparent,
-        appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
+        appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            // to set app bar icons color
+            iconTheme: IconThemeData(color: darkFontGrey)),
         fontFamily: regular,
       ),
       home: const SplashScreen(),
