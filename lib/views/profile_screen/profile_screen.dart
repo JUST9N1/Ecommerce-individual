@@ -1,3 +1,5 @@
+import 'package:emart_app/consts/lists.dart';
+import 'package:emart_app/views/profile_screen/components/details_card.dart';
 import 'package:emart_app/widgets_common/bg_widget.dart';
 
 import '../../consts/consts.dart';
@@ -10,18 +12,21 @@ class ProfileScreen extends StatelessWidget {
     return bgWidget(
       child: Scaffold(
         body: SafeArea(
-            child: Container(
-          padding: EdgeInsets.all(8),
-          child: Column(
-            children: [
-              //edit profile button
-              const Align(
+            child: Column(
+          children: [
+            //edit profile button
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Align(
                       alignment: Alignment.topRight,
                       child: Icon(Icons.edit, color: whiteColor))
                   .onTap(() {}),
+            ),
 
-              //user details section
-              Row(
+            //user details section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
                 children: [
                   Image.asset(
                     imgProfile2,
@@ -44,30 +49,60 @@ class ProfileScreen extends StatelessWidget {
                       child: logout.text.fontFamily(semibold).white.make()),
                 ],
               ),
+            ),
 
-              20.heightBox,
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  "00"
-                      .text
-                      .fontFamily(bold)
-                      .color(darkFontGrey)
-                      .size(16)
-                      .make(),
-                  5.heightBox,
-                  "in your cart".text.color(darkFontGrey).make(),
-                ],
-              )
-                  .box
-                  .white
-                  .rounded
-                  .width(context.screenWidth / 3.2)
-                  .height(80)
-                  .padding(EdgeInsets.all(4))
-                  .make()
-            ],
-          ),
+            20.heightBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                detailsCard(
+                    count: "00",
+                    title: "in your cart",
+                    width: context.screenWidth / 3.4),
+                detailsCard(
+                    count: "32",
+                    title: "in your wishlist",
+                    width: context.screenWidth / 3.4),
+                detailsCard(
+                    count: "675",
+                    title: "your orders",
+                    width: context.screenWidth / 3.4),
+              ],
+            ),
+
+            //buttons Section
+            ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        color: lightGrey,
+                      );
+                    },
+                    itemCount: profileButtonsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        leading: Image.asset(
+                          profileButtonsIcon[index],
+                          width: 22,
+                        ),
+                        title: profileButtonsList[index]
+                            .text
+                            .fontFamily(semibold)
+                            .color(darkFontGrey)
+                            .make(),
+                      );
+                    })
+                .box
+                .white
+                .rounded
+                .margin(const EdgeInsets.all(12))
+                .padding(const EdgeInsets.symmetric(horizontal: 16))
+                .shadowSm
+                .make()
+                .box
+                .color(redColor)
+                .make(),
+          ],
         )),
       ),
     );
