@@ -49,5 +49,10 @@ const womenClothing = "Women Clothing",
     cellphone = "Cellphone & Tab",
     furniture = "Furniture";
 
-
 // item details strings
+const video = "Video",
+    reviews = "Reviews",
+    sellerpolicy = "Seller Policy",
+    returnpolicy = "Return Policy",
+    supportPolicy = "Support Policy",
+    productsyoumaylike = "Products you may also like";

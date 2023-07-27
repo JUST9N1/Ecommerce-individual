@@ -167,7 +167,7 @@ class HomeScreen extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Image.asset(imgP1,
-                                                width: 150, fit: BoxFit.cover),
+                                                width: 130, fit: BoxFit.cover),
                                             10.heightBox,
                                             "Laptop 4GB/64GB"
                                                 .text

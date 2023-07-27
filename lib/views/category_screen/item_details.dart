@@ -1,3 +1,4 @@
+import 'package:emart_app/consts/lists.dart';
 import 'package:emart_app/widgets_common/our_button.dart';
 
 import '../../consts/consts.dart';
@@ -187,19 +188,64 @@ class ItemDetails extends StatelessWidget {
                   .make(),
 
               // buttons section
+              10.heightBox,
 
               ListView(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: List.generate(
-                    5,
+                    itemDetailButtonsList.length,
                     (index) => ListTile(
-                          title: "Video"
+                          title: "${itemDetailButtonsList[index]}"
                               .text
                               .fontFamily(semibold)
                               .color(darkFontGrey)
                               .make(),
                           trailing: const Icon(Icons.arrow_forward),
                         )),
+              ),
+              20.heightBox,
+
+              // products may like section
+
+              productsyoumaylike.text
+                  .fontFamily(bold)
+                  .size(16)
+                  .color(darkFontGrey)
+                  .make(),
+              10.heightBox,
+
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                      6,
+                      (index) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(imgP1, width: 130, fit: BoxFit.cover),
+                              10.heightBox,
+                              "Laptop 4GB/64GB"
+                                  .text
+                                  .fontFamily(semibold)
+                                  .color(darkFontGrey)
+                                  .make(),
+                              10.heightBox,
+                              "\$600"
+                                  .text
+                                  .color(redColor)
+                                  .fontFamily(bold)
+                                  .size(16)
+                                  .make()
+                            ],
+                          )
+                              .box
+                              .white
+                              .margin(const EdgeInsets.symmetric(horizontal: 4))
+                              .roundedSM
+                              .padding(const EdgeInsets.all(8))
+                              .make()),
+                ),
               )
             ]),
           ),
