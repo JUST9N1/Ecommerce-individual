@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //we are using getx so we have to chnge this mterial app into getmaterialapp
+
+    //Using getx so we have to change this mterial app into getmaterialapp
+    
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: appname,
