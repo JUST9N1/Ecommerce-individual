@@ -3,6 +3,7 @@ import 'package:emart_app/views/category_screen/category_details.dart';
 import 'package:get/get.dart';
 
 import '../../consts/consts.dart';
+import '../../controller/product_controller.dart';
 import '../../widgets_common/bg_widget.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -10,6 +11,8 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
+
     return bgWidget(
         child: Scaffold(
       appBar: AppBar(
@@ -49,6 +52,8 @@ class CategoryScreen extends StatelessWidget {
                   .outerShadowSm
                   .make()
                   .onTap(() {
+                controller.getSubCategories(categoriesList[index]);
+
                 Get.to(() => CategoryDetails(title: categoriesList[index]));
               });
             }),
