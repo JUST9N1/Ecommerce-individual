@@ -36,12 +36,22 @@ class ItemDetails extends StatelessWidget {
                 icon: const Icon(
                   Icons.share,
                 )),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_outline,
-                  color: darkFontGrey,
-                ))
+            Obx(
+              () => IconButton(
+                  onPressed: () {
+                    if (controller.isFav.value) {
+                      controller.removeFromWishlist(data.id, context);
+                      controller.isFav(false);
+                    } else {
+                      controller.addToWishlist(data.id, context);
+                      // controller.isFav(true);
+                    }
+                  },
+                  icon: Icon(
+                    Icons.favorite_outlined,
+                    color: controller.isFav.value ? redColor : darkFontGrey,
+                  )),
+            )
           ],
         ),
         body: Column(children: [
@@ -322,14 +332,13 @@ class ItemDetails extends StatelessWidget {
               color: redColor,
               onPress: () {
                 controller.addToCart(
-                  color: data['p_colors'][controller.colorIndex.value],
-                  context: context,
-                  img: data['p_imgs'][0],
-                  qty: controller.quantity.value,
-                  sellername: data['p_name'],
-                  title: data['p_name'],
-                  tprice: controller.totalPrice.value,
-                );
+                    color: data['p_colors'][controller.colorIndex.value],
+                    context: context,
+                    img: data['p_imgs'][0],
+                    qty: controller.quantity.value,
+                    sellername: data['p_seller'],
+                    title: data['p_name'],
+                    tprice: controller.totalPrice.value);
                 VxToast.show(context, msg: "Added to cart");
               },
               textColor: whiteColor,
