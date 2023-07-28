@@ -52,7 +52,6 @@ class ProfileScreen extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             controller.nameController.text = data['name'];
-                            controller.passController.text = data['password'];
                             Get.to(() => EditProfileScreen(data: data));
                           },
                           child: Icon(Icons.edit, color: whiteColor),

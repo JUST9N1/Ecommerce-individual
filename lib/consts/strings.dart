@@ -11,7 +11,7 @@ const nameHint = "Your name";
 const forgetPass = "Forget Password";
 const login = "Log in";
 const loggedin = "Logged in successfully";
-const loggedout = "Logged out successfully";
+const loggedout = "Logged out successfully";  
 const logout = "Log out";
 const signup = "Sign up";
 const createNewAccount = "or, create a new account";
@@ -61,4 +61,4 @@ const video = "Video",
     productsyoumaylike = "Products you may also like";
 
 //profile strings
-const wishlist = "My Wishlist", orders = "My Orders", messages = "Messages";
+const wishlist = "My Wishlist", orders = "My Orders", messages = "Messages", oldpass = "Old password", newpass = "New Password";
