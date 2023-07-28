@@ -1,8 +1,11 @@
 import 'package:emart_app/consts/lists.dart';
+import 'package:emart_app/controller/auth_controller.dart';
 import 'package:emart_app/views/profile_screen/components/details_card.dart';
 import 'package:emart_app/widgets_common/bg_widget.dart';
+import 'package:get/get.dart';
 
 import '../../consts/consts.dart';
+import '../auth_screen/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -45,7 +48,10 @@ class ProfileScreen extends StatelessWidget {
                   OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           side: BorderSide(color: whiteColor)),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await Get.put(AuthController()).signoutMethod(context);
+                        Get.offAll(() => const LoginScreen());
+                      },
                       child: logout.text.fontFamily(semibold).white.make()),
                 ],
               ),
