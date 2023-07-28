@@ -9,11 +9,13 @@ import 'package:get/get.dart';
 import '../../consts/consts.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
+  final dynamic data;
+  const EditProfileScreen({Key? key, this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<ProfileController>();
+
     return bgWidget(
         child: Scaffold(
       appBar: AppBar(),
@@ -21,17 +23,28 @@ class EditProfileScreen extends StatelessWidget {
         () => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            controller.profileImgPath.isEmpty
+            // if data image url adn controller path is empty
+            data['imageUrl'] == '' && controller.profileImgPath.isEmpty
                 ? Image.asset(
                     imgProfile2,
                     width: 100,
                     fit: BoxFit.cover,
                   ).box.roundedFull.clip(Clip.antiAlias).make()
-                : Image.file(
-                    File(controller.profileImgPath.value),
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ).box.roundedFull.clip(Clip.antiAlias).make(),
+
+                  // if data is not empty but controller path is empty
+                : data['imageUrl'] != '' && controller.profileImgPath.isEmpty
+                    ? Image.network(
+                        data['imageUrl'],
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ).box.roundedFull.clip(Clip.antiAlias).make()
+
+                      // if both are empty
+                    : Image.file(
+                        File(controller.profileImgPath.value),
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ).box.roundedFull.clip(Clip.antiAlias).make(),
             10.heightBox,
             ourButton(
                 color: redColor,
@@ -41,16 +54,36 @@ class EditProfileScreen extends StatelessWidget {
                 textColor: whiteColor,
                 title: "change"),
             20.heightBox,
-            customTextField(hint: nameHint, title: name, isPass: false),
-            customTextField(hint: passwordHint, title: password, isPass: true),
+            customTextField(
+                controller: controller.nameController,
+                hint: nameHint,
+                title: name,
+                isPass: false),
+            customTextField(
+                controller: controller.passController,
+                hint: passwordHint,
+                title: password,
+                isPass: true),
             20.heightBox,
-            SizedBox(
-                width: context.screenWidth - 60,
-                child: ourButton(
-                    color: redColor,
-                    onPress: () {},
-                    textColor: whiteColor,
-                    title: "Save")),
+            controller.isloading.value
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(redColor),
+                  )
+                : SizedBox(
+                    width: context.screenWidth - 60,
+                    child: ourButton(
+                        color: redColor,
+                        onPress: () async {
+                          controller.isloading(true);
+                          await controller.uploadProfileImage();
+                          await controller.updateProfile(
+                              imgUrl: controller.profileImageLink,
+                              name: controller.nameController.text,
+                              password: controller.passController.text);
+                          VxToast.show(context, msg: "Updated");
+                        },
+                        textColor: whiteColor,
+                        title: "Save")),
           ],
         )
             .box
