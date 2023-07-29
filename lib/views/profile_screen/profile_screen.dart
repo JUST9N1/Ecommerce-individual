@@ -3,8 +3,10 @@ import 'package:emart_app/consts/consts.dart';
 import 'package:emart_app/controller/auth_controller.dart';
 import 'package:emart_app/controller/profile_controller.dart';
 import 'package:emart_app/services/firestore_services.dart';
+import 'package:emart_app/views/orders_screen/orders_screen.dart';
 import 'package:emart_app/views/profile_screen/components/details_card.dart';
 import 'package:emart_app/views/profile_screen/edit_profile_screen.dart';
+import 'package:emart_app/views/wishlist_screen/wishlist_screen.dart';
 import 'package:emart_app/widgets_common/bg_widget.dart';
 import 'package:get/get.dart';
 
@@ -144,6 +146,19 @@ class ProfileScreen extends StatelessWidget {
                         itemCount: profileButtonsList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
+                            onTap: () {
+                              switch (index) {
+                                case 0:
+                                  Get.to(() => OrdersScreen());
+                                  break;
+                                case 1:
+                                  Get.to(() => WishlistScreen());
+                                  break;
+                                case 2:
+                                  // Get.to(() => MessagesScreen());
+                                  break;
+                              }
+                            },
                             leading: Image.asset(
                               profileButtonsIcon[index],
                               width: 22,

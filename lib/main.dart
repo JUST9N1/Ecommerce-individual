@@ -1,3 +1,4 @@
+import 'package:emart_app/views/orders_screen/orders_screen.dart';
 import 'package:emart_app/views/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
